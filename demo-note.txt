@@ -1,0 +1,6 @@
+Overlay editor demo
+
+1. Terminal 输入: edit demo-note.txt
+2. 文件会覆盖 terminal 打开
+3. Save 写回
+4. Close 回到原 terminal
