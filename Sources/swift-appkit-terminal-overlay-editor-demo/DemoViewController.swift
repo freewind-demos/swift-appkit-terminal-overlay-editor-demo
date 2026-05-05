@@ -13,6 +13,7 @@ final class DemoViewController: NSViewController {
 
     private var currentFileURL: URL?
     private var shellConfigDirectoryURL: URL?
+    private var didStartTerminal = false
 
     override func loadView() {
         view = NSView()
@@ -22,6 +23,17 @@ final class DemoViewController: NSViewController {
         super.viewDidLoad()
         setupView()
         ensureSampleFile()
+    }
+
+    override func viewDidAppear() {
+        super.viewDidAppear()
+
+        guard !didStartTerminal else {
+            return
+        }
+
+        didStartTerminal = true
+        view.layoutSubtreeIfNeeded()
         startTerminal()
     }
 
@@ -29,6 +41,7 @@ final class DemoViewController: NSViewController {
         view.wantsLayer = true
 
         terminalView.translatesAutoresizingMaskIntoConstraints = false
+        terminalView.font = .monospacedSystemFont(ofSize: 16, weight: .regular)
         terminalView.processDelegate = self
         terminalView.onEditRequest = { [weak self] fileURL in
             self?.openEditor(for: fileURL)
